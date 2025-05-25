@@ -1,0 +1,7 @@
+- Onboarding tutorial images 
+- accessibilityLabels and hits for the Onboarding screen
+- language support for Onboarding
+
+- update the accessibilityLabels for the home screen
+- fix camera distortion when navigating (appears randomly)
+- announce accessibilityState when camera switching and show toast

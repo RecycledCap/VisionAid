@@ -1,0 +1,44 @@
+{
+  "read": "Read",
+  "read-a": "Read Document or Sign",
+  "switch": "Switch",
+  "switch-a": "Switch Camera",
+  "detect": "Detect",
+  "detect-a": "Detect Objects",
+  "describe": "Describe",
+  "describe-a": "Describe Scene",
+  "voice": "Voice Command",
+  "voice-a": "Toggle Voice Command",
+  "vision-a": "Vision AI",
+  "visionHint-a": "Ask Vision AI about the document or sign just read, or items just described.",
+
+  "home-a": "Home Screen.",
+  "homeDesc-a": "Home Screen. The background displays a live camera feed. A menu button is located in the top-right corner. At the bottom center, there is a large semi-circular control panel with five buttons arranged in an arc, and one button at the center. Tap any button, to hear more information.",
+
+  "menuBtn-a": "Go to preferences screen",
+
+
+  
+  "preferences": "Preferences",
+  "dMode": "Dark Mode",
+  "fontSize": "Font Size",
+  "fontSize-a": "Font size. Use buttons to the right to adjust font size.",
+  "decFont-a":"Decrease Font Size",
+  "incFont-a":"Increase Font Size",
+  "language": "Language",
+  "language-a": "Change language",
+  "resources": "Resources",
+  "tutorial": "Tutorial",
+  "tutorial-a": "App Walk-through",
+  "tutorialHint-a": "Learn how to use the app features",
+
+  "setEnglish": "Set language to English",
+  "setArabic": "Set language to Arabic",
+  
+
+  "preferences-a": "Preferences screen.",
+  "preferencesDesc-a": "Preferences screen. At the top left, there is a button to go back to home screen, and at the top center is your profile with your details. Below the profile section, there are three options to set your preferences. Finally, there is a resources section which has a button to access the app's tutorial. Tap any button to hear more information.",
+  "toBackPrefBtn-a":"return to preference screen",
+
+  "toHomeBtn-a":"return to home screen"
+}
