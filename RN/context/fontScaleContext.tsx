@@ -1,4 +1,12 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import * as SecureStore from "expo-secure-store";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+
 
 const FONT_SCALES = [0.8, 1, 1.2, 1.4, 1.6];
 
@@ -22,10 +30,28 @@ export const FontScaleProvider = ({ children }: { children: ReactNode }) => {
   const increaseFont = () => {
     setScaleIndex((prev) => Math.min(prev + 1, FONT_SCALES.length - 1));
   };
-
+  
   const decreaseFont = () => {
     setScaleIndex((prev) => Math.max(prev - 1, 0));
   };
+
+  useEffect(() => {
+    const loadFontScale = async () => {
+      let tmpFontScaleIdx = await SecureStore.getItemAsync("fontScaleIndex");
+      if (tmpFontScaleIdx)
+        setScaleIndex(parseInt(tmpFontScaleIdx));
+      else
+        setScaleIndex(1);
+    };
+    loadFontScale();
+  }, []);
+
+  useEffect(() => {
+    const saveFontScale = async () => {
+      await SecureStore.setItemAsync("fontScaleIndex", `${scaleIndex}`);
+    };
+    saveFontScale();
+  }, [scaleIndex]);
 
   return (
     <FontScaleContext.Provider

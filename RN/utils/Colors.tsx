@@ -1,14 +1,15 @@
 export const light = {
   // Home
-  homeBigCircle: "#8c8ce3",
-  actionBtn: "#5a5ab5",
-  actionBtnText: "#1c1c3f",
+  actionSection: "#DCDDE1",
+  actionBtn: "#F5F6FA",
+  actionBtnText: "#2F3640",
+  actionBtnIcon: "#44BD32",
 
-  mainBtn: "#5a5ab5",
-  mainBtnIcon: "#1c1c3f",
+  mainBtn: "#44BD32",
+  mainBtnIcon: "#F5F6FA",
 
-  menuBtn: "#8c8ce3",
-  menuBtnIcon: "#c2c2ff",
+  menuBtn: "#F5F6FA",
+  menuBtnIcon: "#44BD32",
 
   // Profile
   prefBg: "#fff",
@@ -18,20 +19,21 @@ export const light = {
 }
 export const dark = {
   // Home
-  homeBigCircle: "#1c1c3f",
-  actionBtn: "#5a5ab5",
-  actionBtnText: "#c2c2ff",  
+  actionSection: "#2F3640",
+  actionBtn: "#4E525F",
+  actionBtnText: "#F5F6FA",  
+  actionBtnIcon: "#8C7AE6",
 
-  mainBtn: "#5a5ab5",
-  mainBtnIcon: "#c2c2ff",
+  mainBtn: "#8C7AE6",
+  mainBtnIcon: "#2F3640",
 
-  menuBtn: "#3f3f7d",
-  menuBtnIcon: "#8c8ce3",
+  menuBtn: "#4E525F",
+  menuBtnIcon: "#8C7AE6",
 
   // Profile
-  prefBg: "#1c1c3f",
-  prefRow: "#3f3f7d",
-  prefRowText: "#c2c2ff",
+  prefBg: "#2F3640",
+  prefRow: "#4E525F",
+  prefRowText: "#F5F6FA",
 
 
 }

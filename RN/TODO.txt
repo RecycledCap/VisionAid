@@ -1,7 +1,25 @@
-- Onboarding tutorial images 
-- accessibilityLabels and hits for the Onboarding screen
-- language support for Onboarding
 
-- update the accessibilityLabels for the home screen
-- fix camera distortion when navigating (appears randomly)
+
+
+
+- splash screen and app logo
+- could add a small vibration after voice command/ai question is received
 - announce accessibilityState when camera switching and show toast
+- fix camera distortion when navigating (appears randomly)
+
+- Loading screen for the scene description
+
+[done]
+
+- cam permission asked on onboarding
+- persistent settings
+- onboarding shown only the first time
+- Safety alert from the coco detection result
+- implement text to speech 
+- language support for Onboarding
+- accessibilityLabels and hits for the Onboarding screen
+- lead to onboadring when the app is installed first time
+- update the accessibilityLabels for the home screen
+- Onboarding tutorial images 
+
+- option to select the objects to detect [done]

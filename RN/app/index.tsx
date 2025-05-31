@@ -1,50 +1,35 @@
 import { AntDesign } from "@expo/vector-icons";
 import { router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import { StatusBar } from "expo-status-bar";
 import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-    Animated,
-    Dimensions,
-    FlatList,
-    Image,
-    ListRenderItemInfo,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    ViewToken,
+  Animated,
+  Button,
+  Dimensions,
+  FlatList,
+  Image,
+  ListRenderItemInfo,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewToken,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import slides from "../../utils/boards";
+import { COCO_CLASSES } from "../context/selectionContext";
+import slides from "../utils/boards";
 
-const onboardingItem = ({
-  item,
-}: ListRenderItemInfo<{
-  id: string;
-  title: string;
-  description: string;
-  image: any;
-}>) => {
-  const { width } = Dimensions.get("window");
-  return (
-    <View style={[styles.boardItem, { width }]}>
-      <Image
-        source={item.image}
-        style={[styles.image, { width: "100%", resizeMode: "contain" }]}
-      />
+import { useCameraPermissions } from "expo-camera";
 
-      <View style={{ flex: 0.3 }}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-      </View>
-    </View>
-  );
-};
-
-export default function onboarding() {
+export default function Index() {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
   const slidesRef = useRef<FlatList>(null);
+  const [permission, requestPermission] = useCameraPermissions();
+
+  const { t } = useTranslation();
 
   const { width } = Dimensions.get("window");
 
@@ -66,11 +51,49 @@ export default function onboarding() {
         if (router.canGoBack()) {
           router.back();
         } else {
-          router.push("/");
+          // First time onboarding
+          router.push("/home");
+          saveSettings();
         }
       }
     }
   };
+
+  if (!permission) {
+    // Camera permissions are still loading.
+    return <View />;
+  }
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet.
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            paddingBottom: 10,
+          }}
+        >
+          SightMate needs your permission to use the camera
+        </Text>
+        <Button onPress={requestPermission} title="grant permission" />
+      </View>
+    );
+  }
+
+  async function saveSettings() {
+    await SecureStore.setItemAsync("isFirstTime", "no");
+
+    await SecureStore.setItemAsync("language", "en");
+    await SecureStore.setItemAsync("isDarkMode", "no");
+    await SecureStore.setItemAsync("fontScaleIndex", "1");
+    await SecureStore.setItemAsync("selection", COCO_CLASSES.join(";"));
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -78,11 +101,49 @@ export default function onboarding() {
         <View style={{ flex: 3 }}>
           <FlatList
             data={slides}
-            renderItem={(item) => onboardingItem(item)}
+            renderItem={(
+              item: ListRenderItemInfo<{
+                id: string;
+                title: string;
+                description: string;
+                image: any;
+              }>
+            ) => {
+              return (
+                <View style={[styles.boardItem, { width }]}>
+                  <Image
+                    source={item.item.image}
+                    style={[
+                      styles.image,
+                      { width: "100%", resizeMode: "contain" },
+                    ]}
+                    accessible={true}
+                    accessibilityLabel={t("img-" + item.item.id)}
+                  />
+
+                  <View style={{ flex: 0.3, marginTop: 10 }}>
+                    <Text
+                      style={styles.title}
+                      accessible={true}
+                      accessibilityLabel={t("title-" + item.item.id)}
+                    >
+                      {t("title-" + item.item.id)}
+                    </Text>
+                    <Text
+                      style={styles.description}
+                      accessible={true}
+                      accessibilityLabel={t("description-" + item.item.id)}
+                    >
+                      {t("description-" + item.item.id)}
+                    </Text>
+                  </View>
+                </View>
+              );
+            }}
             horizontal
             showsHorizontalScrollIndicator={false}
             pagingEnabled
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.title}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { x: scrollX } } }],
               { useNativeDriver: false }
@@ -173,7 +234,7 @@ const styles = StyleSheet.create({
     fontWeight: 300,
     color: "#62656b",
     textAlign: "center",
-    paddingHorizontal: 64,
+    paddingHorizontal: 20,
   },
 
   dot: {
@@ -190,11 +251,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   btn: {
-    width: 110,
-    height: 110,
+    width: 90,
+    height: 90,
     borderRadius: "50%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f4338f",
+    backgroundColor: "#44BD32",
   },
 });

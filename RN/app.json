@@ -1,22 +1,28 @@
 {
   "expo": {
-    "name": "VisionAid",
-    "slug": "VisionAid",
+    "name": "VisionKU",
+    "slug": "VisionKU",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "visionaid",
+    "scheme": "visionku",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.hanizu.VisionKU",
+      "usesCleartextTraffic": true
     },
     "web": {
       "bundler": "metro",
@@ -28,22 +34,20 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#DCDDE1",
+          "image": "./assets/images/sightmate-logo.png",
+          "dark": {
+            "image": "./assets/images/sightmate-logo-dark.png",
+            "backgroundColor": "#2F3640"
+          },
+          "imageWidth": 200
         }
       ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
-          "recordAudioAndroid": true
-        }
-      ],
-      "expo-localization"
+      "expo-speech-recognition",
+      "expo-audio",
+      "expo-secure-store"
     ],
+    "icon": "./assets/images/sightmate-logo.png",
     "experiments": {
       "typedRoutes": true
     }
