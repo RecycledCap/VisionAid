@@ -24,22 +24,22 @@ import slides from "../utils/boards";
 import { useCameraPermissions } from "expo-camera";
 
 export default function Index() {
-  const scrollX = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const slidesRef = useRef<FlatList>(null);
   const [permission, requestPermission] = useCameraPermissions();
 
-  const { t } = useTranslation();
-
-  const { width } = Dimensions.get("window");
-
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const slidesRef = useRef<FlatList>(null);
+  const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
   const viewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       setCurrentIndex(viewableItems[0].index ?? 100); // Done just to avoid type error
     }
   ).current;
 
-  const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
+
+  const { t } = useTranslation();
+
+  const { width } = Dimensions.get("window");
 
   const scrollTo = (direction: string) => {
     if (slidesRef.current) {
@@ -58,6 +58,15 @@ export default function Index() {
       }
     }
   };
+
+  async function saveSettings() {
+    await SecureStore.setItemAsync("isFirstTime", "no");
+
+    await SecureStore.setItemAsync("language", "en");
+    await SecureStore.setItemAsync("isDarkMode", "no");
+    await SecureStore.setItemAsync("fontScaleIndex", "1");
+    await SecureStore.setItemAsync("selection", COCO_CLASSES.join(";"));
+  }
 
   if (!permission) {
     // Camera permissions are still loading.
@@ -85,16 +94,6 @@ export default function Index() {
       </View>
     );
   }
-
-  async function saveSettings() {
-    await SecureStore.setItemAsync("isFirstTime", "no");
-
-    await SecureStore.setItemAsync("language", "en");
-    await SecureStore.setItemAsync("isDarkMode", "no");
-    await SecureStore.setItemAsync("fontScaleIndex", "1");
-    await SecureStore.setItemAsync("selection", COCO_CLASSES.join(";"));
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.board]}>
